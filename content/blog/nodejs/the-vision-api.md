@@ -1,6 +1,6 @@
 ---
 layout: Post
-title: Space X Starship TestFlight 6 launching Visit.
+title: The Future of Real-Time Vision AI
 description: Ea culpa reprehenderit officia ad sunt ex consequat consequat deserunt fugiat. Sunt pariatur in veniam irure commodo in sint labore non laborum in enim nisi.
 date: '2024-12-01'
 tags:
