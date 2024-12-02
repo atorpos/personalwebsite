@@ -2,11 +2,11 @@
 layout: Home
 seo:
   title: Software Engineer
-  description: Custom description for this page goes here
+  description: Oskar personal website, a one stop showcase for skill
 ---
 
 ---main
-slogan: Trusted By Fortune 500 Companies
+slogan: Trusted By Peoples
 ---
 
 # *Oskar Wong*
@@ -60,18 +60,18 @@ Featured highlight of my thoughts and experiments.
 
 
 ---companies
-title: Trusted By
+title: Expert In
 list:
   - name: Company 1
     icon:
-      src: /icons/logo-1.svg
+      src: /icons/nodejs-front.svg
   - name: Company 2
     icon:
-      src: /icons/logo-3.svg
+      src: /icons/python-front.svg
   - name: Company 3
     icon:
-      src: /icons/logo-3.svg
+      src: /icons/apple-swift-front.svg
   - name: Company 4
     icon:
-      src: /icons/logo-4.svg
+      src: /icons/java-front.svg
 ---

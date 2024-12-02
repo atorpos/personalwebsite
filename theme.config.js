@@ -131,7 +131,7 @@ export const mdxConfig = {
  */
 
 export const siteMetaData = {
-  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || process.env.VERCEL_URL || 'http://localhost:3000',
+  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || process.env.VERCEL_URL || 'https://www.altawoz.com',
   authorName: 'Oskar Wong',
   siteName: 'Oskar Wong',
   defaultTitle: 'Oskar Wong Personal Site',
