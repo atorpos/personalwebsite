@@ -13,11 +13,11 @@ slogan: Trusted By Peoples
 
 ## <Typewriter>Software Engineer</Typewriter>
 
-##### <span>Based in Toronto | Seattle | Hong Kong</span>
+##### <span>Based in New York </span>
 
 <Sep size={6} line className='max-w-sm mx-auto' />
 
-Upbeat personality, highly skilled Analyst Programmer with driving new technologies to enhance company systems with Various Programming Language. Track record of mentoring colleagues to enhance their PHP, Objective-C, Swift, and shell scripting skills.
+Upbeat personality, highly skilled Analyst Programmer with a driving passion for new technologies to enhance company systems with various programming languages. Track record of mentoring colleagues to enhance their Java, Node.js, Python, React, Objective-C, Swift, and shell scripting skills.
 
 
 
@@ -34,12 +34,12 @@ collection:
 
 #### <span>Featured Career Highlights </span>
 
-Featured highlight of my thoughts and experiments.
+A featured highlight of my thoughts and experiments.
 
 
 
 ---achievements
-- number: 8+
+- number: 10+
   text: Years of experience
 - number: 30+
   text: Projects Completed
