@@ -2,12 +2,14 @@ import React from 'react'
 import dynamic from 'next/dynamic'
 import { ArticleJsonLd } from 'next-seo'
 import ContentRenderer from '@/components/ContentRenderer'
+import RichText from '@/components/RichText'
 import Image from '@/components/Image'
 import Tag from '@/components/Tag'
 import Date from '@/components/Date'
 import ImageGallery from '@/components/ImageGallery'
 import Sep from '@/components/Sep'
 import Newsletter from '@/components/Newsletter'
+import { toAbsoluteUrl } from '@/utils/index'
 import { siteMetaData } from '../theme.config'
 import authorImage from '../public/author-profile-picture.jpg'
 
@@ -15,6 +17,7 @@ const SocialShare = dynamic(() => import('@/components/SocialShare'))
 
 const Layout = ({
   content,
+  richText,
   title,
   description,
   date,
@@ -32,7 +35,7 @@ const Layout = ({
         type="BlogPosting"
         url={pageUrl}
         title={title}
-        images={images.map((img) => siteUrl + img.src)}
+        images={images.map((img) => toAbsoluteUrl(img.src, siteUrl))}
         datePublished={date}
         authorName={authorName}
         description={seo?.description || description}
@@ -91,7 +94,8 @@ const Layout = ({
               <SocialShare url={pageUrl} className="sticky left-10 top-12 z-10" />
             </div>
             <div className="prose prose-invert mx-auto max-w-prose prose-pre:max-w-[90vw]">
-              <ContentRenderer source={content} />
+              {/* Posts from Payload CMS come as rich text, Markdown posts as compiled MDX */}
+              {richText ? <RichText content={richText} /> : <ContentRenderer source={content} />}
             </div>
           </div>
 

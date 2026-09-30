@@ -1,5 +1,6 @@
 import React from 'react'
 import { NextSeo } from 'next-seo'
+import { toAbsoluteUrl } from '@/utils/index'
 import { siteMetaData } from '../theme.config'
 
 const Seo = (props) => {
@@ -12,7 +13,7 @@ const Seo = (props) => {
     ...seo,
   }
 
-  const ogImageUrl = images?.[0]?.src ? metaData.siteUrl + images[0].src : undefined
+  const ogImageUrl = images?.[0]?.src ? toAbsoluteUrl(images[0].src, metaData.siteUrl) : undefined
 
   const openGraph = {
     url: pageUrl,

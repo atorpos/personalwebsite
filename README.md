@@ -4,3 +4,7 @@
 
 - [Live Demo](https://elegantstack.netlify.app/edgefolio-demo)
 - [Documentation](https://elegantstack.netlify.app/edgefolio)
+
+## Blog posts from Payload CMS
+
+Besides the Markdown files in `content/blog`, blog posts can be written in Payload CMS. Setup and usage: [docs/payload-cms.md](docs/payload-cms.md).

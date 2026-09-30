@@ -4,6 +4,7 @@ import Seo from '@/components/Seo'
 import Layout from '@/components/Layout'
 import layouts from '@/layouts/index'
 import { getPaths, getPageBySlug, generateCollectionRss } from '@/lib/mdx'
+import { isCmsEnabled, revalidateSeconds } from '@/lib/payload'
 import { siteMetaData } from '../theme.config'
 
 // Fetch data at build time
@@ -51,7 +52,8 @@ export async function getStaticProps({ params }) {
   // Generate RSS feed for collections
   await generateCollectionRss(slug)
 
-  return { props }
+  // Re-render in the background from time to time to pick up changes made in Payload CMS
+  return { props, ...(isCmsEnabled && { revalidate: revalidateSeconds }) }
 }
 
 // Specify dynamic routes to pre-render pages based on data.
