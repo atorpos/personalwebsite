@@ -2,8 +2,16 @@ import React from 'react'
 import Link from 'next/link'
 import classNames from 'clsx'
 import ActiveLink from '@/components/ActiveLink'
+import { iconFor, menuIcons, socialPlatforms } from '@/components/SiteIcons'
 import { menu, social } from '../theme.config'
 import { BiChevronDown, BiDotsHorizontalRounded } from 'react-icons/bi'
+
+// Menu items and social links from Payload CMS name their icon (components/SiteIcons.jsx)
+const fromCmsMenu = (items) =>
+  items?.map(({ icon, ...item }) => ({ ...item, Icon: iconFor(menuIcons, icon) }))
+
+const fromCmsSocial = (links) =>
+  links?.map(({ platform, url }) => ({ url, ...iconFor(socialPlatforms, platform) }))
 
 const MenuItem = ({ name, Icon, text, slug, number, isOpen, toggleMenu, ...rest }) => (
   <ActiveLink
@@ -53,8 +61,10 @@ const SocialLink = ({ url, name, Icon }) => (
   </Link>
 )
 
-const Menu = () => {
+const Menu = ({ items, socialLinks }) => {
   const [isOpen, setIsOpen] = React.useState(false)
+  const menuItems = fromCmsMenu(items) || menu
+  const socialItems = fromCmsSocial(socialLinks) || social
 
   const toggleMenu = () => setIsOpen((open) => !open)
   const closeMenu = () => setIsOpen(false)
@@ -78,10 +88,12 @@ const Menu = () => {
           isOpen ? '-translate-y-full' : '-translate-y-16'
         )}
       >
-        {menu && (
+        {menuItems && (
           <div className="grid w-full grid-cols-4 bg-gradient-to-b from-transparent to-omega-800 md:block">
-            {menu &&
-              menu.map((item) => <MenuItem {...item} key={`${item.slug}`} onClick={closeMenu} />)}
+            {menuItems &&
+              menuItems.map((item) => (
+                <MenuItem {...item} key={`${item.slug}`} onClick={closeMenu} />
+              ))}
             <div
               className={classNames(
                 'row-start-1 flex h-16 items-center md:hidden',
@@ -100,9 +112,9 @@ const Menu = () => {
           </div>
         )}
 
-        {social && (
+        {socialItems && (
           <div className="flex w-full flex-wrap bg-accent md:block md:bg-omega-800">
-            {social.map((item, i) => (
+            {socialItems.map((item, i) => (
               <SocialLink key={`${i}-social`} {...item} />
             ))}
           </div>

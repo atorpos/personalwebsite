@@ -5,6 +5,7 @@
 - [Live Demo](https://elegantstack.netlify.app/edgefolio-demo)
 - [Documentation](https://elegantstack.netlify.app/edgefolio)
 
-## Blog posts from Payload CMS
+## Content from Payload CMS
 
-Besides the Markdown files in `content/blog`, blog posts can be written in Payload CMS. Setup and usage: [docs/payload-cms.md](docs/payload-cms.md).
+The pages, menu, blog posts and projects can be edited in Payload CMS instead of the Markdown files in `content/` and
+`theme.config.js`, which stay in use for everything not in the CMS. Setup and usage: [docs/payload-cms.md](docs/payload-cms.md).

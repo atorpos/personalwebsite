@@ -3,8 +3,8 @@ import { MDXRemote } from 'next-mdx-remote'
 import MDXComponents from '@/components/MDX'
 
 /**
- * Renders rich text from Payload CMS (Lexical JSON, prepared by lib/payload.js) with the same
- * components as Markdown content, so posts from the CMS look like the Markdown ones.
+ * Renders rich text from Payload CMS (Lexical JSON, prepared by lib/payload/rich-text.js) with the
+ * same components as Markdown content, so content from the CMS looks like the Markdown.
  */
 
 const { a: Link, img: Img, Youtube } = MDXComponents
@@ -42,12 +42,27 @@ function renderText({ text, format = 0 }) {
   return result
 }
 
+// Where linked documents are on this site. Pages of the CMS's other sites aren't.
+function getInternalPath(relationTo, { slug, sites }) {
+  switch (relationTo) {
+    case 'posts':
+      return `/blog/${slug}`
+    case 'personal-projects':
+      return `/projects/${slug}`
+    case 'pages':
+      return sites?.includes('personal') ? `/${slug}` : null
+    default:
+      return null
+  }
+}
+
 function getLinkProps({ fields = {} }) {
   if (fields.linkType === 'internal') {
     const { relationTo, value } = fields.doc || {}
-    // Unpublished posts aren't populated for the website
-    if (relationTo !== 'posts' || !value?.slug) return null
-    return { href: `/blog/${value.slug}`, ...(fields.newTab && { target: '_blank' }) }
+    // Unpublished documents aren't populated for the website
+    const href = value?.slug && getInternalPath(relationTo, value)
+    if (!href) return null
+    return { href, ...(fields.newTab && { target: '_blank' }) }
   }
 
   if (!fields.url) return null

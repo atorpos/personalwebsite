@@ -10,7 +10,7 @@ import ImageGallery from '@/components/ImageGallery'
 import Sep from '@/components/Sep'
 import Newsletter from '@/components/Newsletter'
 import { toAbsoluteUrl } from '@/utils/index'
-import { siteMetaData } from '../theme.config'
+import { getSiteMetaData } from '@/utils/site'
 import authorImage from '../public/author-profile-picture.jpg'
 
 const SocialShare = dynamic(() => import('@/components/SocialShare'))
@@ -26,8 +26,9 @@ const Layout = ({
   images = [],
   attributes = [],
   pageUrl,
+  site,
 }) => {
-  const { siteUrl, authorName } = siteMetaData || {}
+  const { siteUrl, authorName } = getSiteMetaData(site)
 
   return (
     <>

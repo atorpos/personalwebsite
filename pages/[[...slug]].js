@@ -4,7 +4,7 @@ import Seo from '@/components/Seo'
 import Layout from '@/components/Layout'
 import layouts from '@/layouts/index'
 import { getPaths, getPageBySlug, generateCollectionRss } from '@/lib/mdx'
-import { isCmsEnabled, revalidateSeconds } from '@/lib/payload'
+import { getSiteSettings, isCmsEnabled, revalidateSeconds } from '@/lib/payload'
 import { siteMetaData } from '../theme.config'
 
 // Fetch data at build time
@@ -25,7 +25,10 @@ export async function getStaticProps({ params }) {
     page = await getPageBySlug(['not-found'])
   }
 
-  const props = { page }
+  // Name, menu and social links from Site settings in Payload CMS (null: theme.config.js)
+  const site = await getSiteSettings()
+
+  const props = { page, site }
 
   // Add pagination props for collection pages
   if (page.meta && page.meta.collection) {
@@ -50,7 +53,7 @@ export async function getStaticProps({ params }) {
   }
 
   // Generate RSS feed for collections
-  await generateCollectionRss(slug)
+  await generateCollectionRss(slug, site)
 
   // Re-render in the background from time to time to pick up changes made in Payload CMS
   return { props, ...(isCmsEnabled && { revalidate: revalidateSeconds }) }
@@ -70,7 +73,7 @@ export async function getStaticPaths() {
   return { paths, fallback: true }
 }
 
-export default function Page({ pagination, page = {} }) {
+export default function Page({ pagination, page = {}, site }) {
   const { meta = {}, ...content } = page
   const router = useRouter()
 
@@ -82,12 +85,12 @@ export default function Page({ pagination, page = {} }) {
 
   return (
     <>
-      <Seo {...meta} pageUrl={pageUrl} />
-      <DynamicLayout {...meta} {...content} pagination={pagination} pageUrl={pageUrl} />
+      <Seo {...meta} site={site} pageUrl={pageUrl} />
+      <DynamicLayout {...meta} {...content} pagination={pagination} pageUrl={pageUrl} site={site} />
     </>
   )
 }
 
 Page.getLayout = function getLayout(page) {
-  return <Layout>{page}</Layout>
+  return <Layout site={page.props.site}>{page}</Layout>
 }

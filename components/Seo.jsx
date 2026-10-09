@@ -1,15 +1,16 @@
 import React from 'react'
 import { NextSeo } from 'next-seo'
 import { toAbsoluteUrl } from '@/utils/index'
-import { siteMetaData } from '../theme.config'
+import { getSiteMetaData } from '@/utils/site'
 
 const Seo = (props) => {
-  const { seo = {}, title, description, images, pageUrl } = props
+  const { seo = {}, title, description, images, pageUrl, site } = props
 
+  // Without a title or description of its own, a page gets the site's defaults
   const metaData = {
-    ...siteMetaData,
-    title,
-    description,
+    ...getSiteMetaData(site),
+    ...(title && { title }),
+    ...(description && { description }),
     ...seo,
   }
 
