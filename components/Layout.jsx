@@ -5,7 +5,8 @@ import ThemeSwitcher from '@/components/ThemeSwitcher'
 import fonts from '@/styles/fonts'
 
 const Layout = (props) => {
-  const { children } = props
+  // `site` holds the menu and social links from Site settings in Payload CMS, if any
+  const { children, site } = props
   const [theme, setTheme] = React.useState({})
 
   return (
@@ -26,7 +27,7 @@ const Layout = (props) => {
           </div>
         </main>
       </div>
-      <Menu />
+      <Menu items={site?.menu} socialLinks={site?.social} />
     </div>
   )
 }
