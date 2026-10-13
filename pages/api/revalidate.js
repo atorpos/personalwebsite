@@ -5,7 +5,7 @@
 
 import crypto from 'crypto'
 import { getPageBySlug, getPaths } from '@/lib/mdx'
-import { PAGE_GLOBALS } from '@/lib/payload'
+import { loadPortfolio, PAGE_GLOBALS, PHOTOS, PHOTO_TAGS } from '@/lib/payload'
 
 /**
  * Called by Payload CMS (src/hooks/revalidateWebsite.ts there) when something on the website
@@ -15,6 +15,7 @@ import { PAGE_GLOBALS } from '@/lib/payload'
  *   POST /api/revalidate
  *   Authorization: Bearer <REVALIDATE_SECRET>
  *   { "collection": "posts", "slugs": ["my-post"], "tags": ["react"] }   posts, projects or pages
+ *   { "collection": "personal-photos", "slugs": [...], "tags": [...], "albums": ["japan"] }
  *   { "global": "personal-about" }                                       a page or Site settings
  */
 
@@ -40,13 +41,58 @@ async function getListingPaths(slug) {
   return [path, ...Array.from({ length: totalPages }, (_, i) => `${path}/page/${i + 1}`)]
 }
 
-async function getPathsToRevalidate({ collection, global, slugs = [], tags = [] }) {
+// The photo pages that show what changed. Neighbors are photos next to a changed one in its album,
+// which link to it; pages that link to a photo that's gone pick that up at their next refresh.
+async function getPhotoPathsToRevalidate({ collection, slugs, tags, albums }) {
+  const { photos } = await loadPortfolio()
+  const albumPath = (album) => `/${PHOTOS}/${album}`
+
+  if (collection === 'personal-photo-albums') {
+    // A photo shows the title of its album; old slugs redirect its photos to the new address
+    const albumPhotos = photos.filter((photo) =>
+      slugs.some((slug) => photo.album.path === albumPath(slug))
+    )
+
+    return [
+      `/${PHOTOS}`,
+      ...slugs.map(albumPath),
+      ...slugs.flatMap((slug) => albumPhotos.map((photo) => `${albumPath(slug)}/${photo.slug}`)),
+    ]
+  }
+
+  const neighbors = photos.flatMap((photo, i) =>
+    slugs.includes(photo.slug)
+      ? [photos[i - 1], photos[i + 1]]
+          .filter((other) => other?.album.path === photo.album.path)
+          .map((other) => other.path)
+      : []
+  )
+
+  return [
+    `/${PHOTOS}`,
+    ...albums.map(albumPath),
+    ...albums.flatMap((album) => slugs.map((slug) => `${albumPath(album)}/${slug}`)),
+    ...neighbors,
+    ...tags.map((tag) => `/${PHOTOS}/${PHOTO_TAGS}/${tag}`),
+  ]
+}
+
+async function getPathsToRevalidate({ collection, global, slugs = [], tags = [], albums = [] }) {
   slugs = [].concat(slugs).filter(isSlug)
   tags = [].concat(tags).filter(isSlug)
+  albums = [].concat(albums).filter(isSlug)
 
   if (global === 'personal-settings') {
     // The site's name, menu and social links are on every page
     return (await getPaths()).map(({ slug }) => `/${slug.join('/')}`)
+  }
+
+  if (global === 'personal-photos-page') {
+    return [`/${PHOTOS}`]
+  }
+
+  if (collection === 'personal-photos' || collection === 'personal-photo-albums') {
+    return getPhotoPathsToRevalidate({ collection, slugs, tags, albums })
   }
 
   if (global) {
