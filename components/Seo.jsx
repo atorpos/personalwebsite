@@ -14,13 +14,21 @@ const Seo = (props) => {
     ...seo,
   }
 
-  const ogImageUrl = images?.[0]?.src ? toAbsoluteUrl(images[0].src, metaData.siteUrl) : undefined
+  const [image] = images || []
+  const ogImageUrl = image?.src ? toAbsoluteUrl(image.src, metaData.siteUrl) : undefined
 
   const openGraph = {
     url: pageUrl,
     title: metaData.title,
     description: metaData.description,
-    images: [{ url: ogImageUrl }],
+    images: [
+      {
+        url: ogImageUrl,
+        // When they are known, so that link previews can lay out the image
+        ...(image?.width && image?.height && { width: image.width, height: image.height }),
+        ...(image?.alt && { alt: image.alt }),
+      },
+    ],
     site_name: metaData.siteName,
     locale: metaData.locale,
   }

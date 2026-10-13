@@ -1,6 +1,6 @@
 # Content from Payload CMS
 
-The website's pages, menu, blog posts and projects can be edited in Payload CMS (the `apps/cms` app in the
+The website's pages, menu, blog posts, projects and photo portfolio can be edited in Payload CMS (the `apps/cms` app in the
 [atorpos/payloadcms](https://github.com/atorpos/payloadcms) repo), under **Personal website** in the admin panel.
 
 The Markdown files stay: whatever isn't in the CMS yet still comes from `content/` and `theme.config.js`, so pages can
@@ -31,6 +31,9 @@ move to the CMS one at a time, and without `PAYLOAD_URL` the site builds exactly
 | Blog page                                            | `/blog`: its texts                                                                                | `content/blog.md`              |
 | Posts                                                | `/blog/<slug>`, the blog, tag pages, featured posts on the home page and the RSS feed             | `content/blog/**` (both shown) |
 | Contact page                                         | `/contact`: introduction and contact details (the form stays as it is)                            | `content/contact.md`           |
+| Photos page                                          | `/photos`: its texts                                                                              | built-in defaults              |
+| Photo albums                                         | The albums on `/photos`, each at `/photos/<slug>`                                                 | (CMS only)                     |
+| Photos                                               | A page per photo at `/photos/<album>/<slug>`, tag pages at `/photos/tags/<tag>`                   | (CMS only)                     |
 | Pages with **Personal website** in their Sites field | `/<slug>`, e.g. `/privacy-policy`. A page with the slug `not-found` replaces the "not found" page | `content/<slug>.md`            |
 
 - A page (Home page, About page, …) comes from the CMS once it has been saved there; before that, the website shows
@@ -45,6 +48,9 @@ move to the CMS one at a time, and without `PAYLOAD_URL` the site builds exactly
 | `lib/payload/api.js`                | Reads published content from the CMS; images and SVG icons                      |
 | `lib/payload/pages.js`              | Turns the CMS's pages and Site settings into the shape of the Markdown files    |
 | `lib/payload/index.js`              | Posts and projects, and which page comes from where                             |
+| `lib/payload/photos.js`             | The photo portfolio: albums, photos and tag pages                               |
+| `layouts/Photo*.jsx`                | The pages of the portfolio; `components/Photo*.jsx` the photos and grids        |
+| `pages/sitemap-photos.xml.js`       | A sitemap of the portfolio with its images, always up to date                   |
 | `lib/payload/rich-text.js`          | Prepares rich text: code highlighting, YouTube videos, image addresses          |
 | `components/CmsContent.jsx`         | Renders the pages' sections with the same markup as their Markdown              |
 | `components/RichText.jsx`           | Renders rich text with the same components as Markdown content                  |
@@ -101,8 +107,8 @@ someone visits it.
 ## Step 4: Update the website the moment you save (optional)
 
 Without this step, changes take up to a minute (plus a page visit) to show. With it, the CMS tells the website which
-pages to re-render as soon as you save a page or Site settings, or publish, edit, unpublish or delete a post, project
-or page.
+pages to re-render as soon as you save a page or Site settings, or publish, edit, unpublish or delete a post, project,
+photo, album or page.
 
 1. Generate a secret: `openssl rand -hex 32`
 2. Website: set `REVALIDATE_SECRET=<secret>` and redeploy.
@@ -124,7 +130,7 @@ seconds.
 **Pages and Site settings** have no drafts: **Save** puts the change live. The **Versions** tab lists earlier saves;
 open one and choose **Restore** to go back.
 
-**Projects, posts and pages** have drafts: **Save Draft** keeps changes private, **Publish** makes them public, and
+**Projects, posts, photos, photo albums and pages** have drafts: **Save Draft** keeps changes private, **Publish** makes them public, and
 **Unpublish** (in the menu next to the button) takes them off the website.
 
 - **Icons** (skills, services, "Expert In" logos, project logos) are SVG files, shown in the theme's colors, like the
@@ -135,6 +141,30 @@ open one and choose **Restore** to go back.
 - **Main menu** items have a text, a link and an icon. **Social links** show the icon of their platform.
 - **A new page**: Pages → Create New, tick **Personal website** under Sites, publish, and add it to the main menu in
   Site settings if it should be there. Its slug is its address, e.g. `privacy-policy` for `/privacy-policy`.
+
+### Photos
+
+The photo portfolio at `/photos` exists only in the CMS (with `PAYLOAD_URL` unset, `/photos` is "not found"). To fill
+it:
+
+1. **Photo albums → Create New**: a title (e.g. "Street", "Japan 2025") and a description, then **Publish**. Albums are
+   the catalogs of `/photos`; drag them into order in the list.
+2. **Photos → Bulk Upload**: drop in your photos (JPEG, PNG or WebP). Set their album for all of them at once with
+   **Edit all** → **Album** → **Apply Changes**, then **Publish** (or **Save Draft** to review them first).
+3. With `OPENAI_API_KEY` set in the CMS, each photo's empty title, alt text, description and tags are written by AI
+   during the upload. **Generate with AI** in a photo's sidebar writes new ones to review. Without it, the title is
+   the file name and you write the rest.
+4. Optional: add **Location**, tick **Featured** to show a photo on `/photos`, and drag photos into order.
+5. Add `/photos` to the main menu in Site settings (the **Camera** or **Picture** icon fits).
+
+The CMS strips each photo's metadata (such as its GPS location) and stores it with copies at 480, 960, 1600 and
+2560 px; the website loads the size that fits the screen straight from there (S3), without the Next.js image
+optimizer. Details of the fields: "Photos" in the CMS's `apps/cms/README.md`.
+
+For search engines, every photo has its own page with its title, description and alt text, the camera details,
+structured data (`ImageObject` and breadcrumbs) and a link preview image. `/sitemap-photos.xml` lists every album and
+photo page with its image; it's made on request, so new photos are in it right away, and `robots.txt` points to it.
+Moving a photo to another album changes its address, and the old one redirects to the new one.
 
 ### Posts
 
@@ -199,6 +229,8 @@ In development every page is rendered on each request, so changes in the CMS sho
 | An icon is missing                                                   | Icons must be SVG files. The build log shows `Could not load the icon` when the website can't download one.                                                                |
 | A GitHub repository is missing on `/projects`                        | The build log shows `Could not load the GitHub repository` with GitHub's reason, e.g. a typo in owner/name or an invalid `GITHUB_TOKEN`.                                   |
 | The CMS logs `Could not revalidate … 401`                            | `REVALIDATE_SECRET` (website) and `WEBSITE_REVALIDATE_SECRET` (CMS) differ.                                                                                                |
+| A photo or album isn't on `/photos`                                  | The photo or its album is a draft: publish both. An album without published photos isn't listed.                                                                           |
+| Photos don't load (broken images)                                    | The files in S3 aren't public. The CMS stores photos next to Media (`media/photos/`), so the bucket policy for Media covers them unless `S3_PHOTOS_PREFIX` moved them.     |
 
 ## Limitations
 

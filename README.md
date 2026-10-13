@@ -8,4 +8,5 @@
 ## Content from Payload CMS
 
 The pages, menu, blog posts and projects can be edited in Payload CMS instead of the Markdown files in `content/` and
-`theme.config.js`, which stay in use for everything not in the CMS. Setup and usage: [docs/payload-cms.md](docs/payload-cms.md).
+`theme.config.js`, which stay in use for everything not in the CMS. The photo portfolio at `/photos` (albums, photos
+with AI-written descriptions and tags) comes only from the CMS. Setup and usage: [docs/payload-cms.md](docs/payload-cms.md).

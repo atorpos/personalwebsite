@@ -12,7 +12,8 @@ export async function getStaticProps({ params }) {
   let slug = params.slug || []
   let currentPage = 1
 
-  const pageIndex = slug.indexOf('page')
+  // /blog/page/2, but not a post or photo whose slug is "page"
+  const pageIndex = slug.findIndex((part, i) => part === 'page' && /^\d+$/.test(slug[i + 1]))
 
   if (pageIndex !== -1) {
     currentPage = parseInt(slug[pageIndex + 1])
@@ -20,6 +21,14 @@ export async function getStaticProps({ params }) {
   }
 
   let page = await getPageBySlug(slug)
+
+  // A photo that moved to another album
+  if (page?.redirect) {
+    return {
+      redirect: { destination: page.redirect, permanent: false },
+      ...(isCmsEnabled && { revalidate: revalidateSeconds }),
+    }
+  }
 
   if (!page) {
     page = await getPageBySlug(['not-found'])
