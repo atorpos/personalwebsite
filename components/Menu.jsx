@@ -2,9 +2,11 @@ import React from 'react'
 import Link from 'next/link'
 import classNames from 'clsx'
 import ActiveLink from '@/components/ActiveLink'
+import { openCookieSettings } from '@/components/CookieConsent'
 import { iconFor, menuIcons, socialPlatforms } from '@/components/SiteIcons'
+import { measurementId } from '@/lib/analytics'
 import { menu, social } from '../theme.config'
-import { BiChevronDown, BiDotsHorizontalRounded } from 'react-icons/bi'
+import { BiChevronDown, BiCookie, BiDotsHorizontalRounded } from 'react-icons/bi'
 
 // Menu items and social links from Payload CMS name their icon (components/SiteIcons.jsx)
 const fromCmsMenu = (items) =>
@@ -117,6 +119,17 @@ const Menu = ({ items, socialLinks }) => {
             {socialItems.map((item, i) => (
               <SocialLink key={`${i}-social`} {...item} />
             ))}
+            {measurementId && (
+              <button
+                type="button"
+                className="group block w-full flex-1 text-center"
+                onClick={openCookieSettings}
+                title="Cookie settings"
+                aria-label="Cookie settings"
+              >
+                <BiCookie className="mx-auto h-12 w-6 text-white md:text-omega-500 md:group-hover:text-alpha" />
+              </button>
+            )}
           </div>
         )}
       </div>
