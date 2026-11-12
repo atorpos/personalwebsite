@@ -2,7 +2,7 @@
 layout: About
 seo:
   title: About Me
-  description: Custom description for this page goes here
+  description: 'About Oskar Wong: a software engineer in New York who builds mobile apps, back ends and APIs, and photographs landscapes on his travels.'
 ---
 
 

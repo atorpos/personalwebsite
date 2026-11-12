@@ -2,7 +2,7 @@
 layout: Services
 seo:
   title: Web Development Services
-  description: Custom description for this page goes here
+  description: 'Web and mobile app development by Oskar Wong: design strategy, front-end and back-end development, APIs, data analysis and AI integration.'
 ---
 
 

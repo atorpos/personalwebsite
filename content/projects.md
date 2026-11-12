@@ -2,7 +2,7 @@
 layout: Projects
 seo:
   title: My Development Projects
-  description: My Showcase of my projects
+  description: 'Projects by Oskar Wong: iOS and watchOS apps in public beta, the ALGARA smart jewelry, and open-source code on GitHub.'
 ---
 
 ---github

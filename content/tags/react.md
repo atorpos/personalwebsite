@@ -3,7 +3,7 @@ layout: Blog
 title: React
 seo:
   title: React Articles
-  description: Custom description for this page goes here
+  description: Articles by Oskar Wong about React.
 collection:
   path: /blog
   recordsPerPage: 9

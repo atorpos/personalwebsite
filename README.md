@@ -26,3 +26,21 @@ cookies are only set, after they accept. The choice is remembered, and the cooki
 change it; declining afterwards deletes the cookies. Advertising features stay off (Google's consent mode).
 
 Without `NEXT_PUBLIC_GA_ID` there is no banner and nothing is sent. `npm run dev` never sends anything.
+
+## Search engines and AI assistants
+
+Every page is rendered as HTML when the site is built, so search engines and AI assistants can read it without running
+JavaScript. Each page has a title, a description (`seo.description` in its Markdown file, or SEO in the CMS), a
+canonical address and a link preview image (its first image, or `public/og-image.jpg`).
+
+- `robots.txt` and `sitemap.xml` are written by `npm run build` (`next-sitemap.config.js`) for `NEXT_PUBLIC_SITE_URL`,
+  `https://www.altawoz.com` by default. `robots.txt` allows every crawler, AI crawlers included.
+- The home page describes you and the site as structured data (schema.org `Person` and `WebSite`, with your social
+  links); posts and projects as `BlogPosting`.
+- `public/llms.txt` summarizes the site for AI assistants. Update it when the projects change.
+- Pages with `noindex: true` under `seo` are kept out of search results; add them to `exclude` in
+  `next-sitemap.config.js` too. Addresses without a page answer 404.
+
+After a deploy that changes pages, submit `https://www.altawoz.com/sitemap.xml` in
+[Google Search Console](https://search.google.com/search-console) (Google Search and AI Overviews) and
+[Bing Webmaster Tools](https://www.bing.com/webmasters) (Bing, Copilot and ChatGPT search).

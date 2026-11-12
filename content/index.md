@@ -2,7 +2,7 @@
 layout: Home
 seo:
   title: Software Engineer
-  description: Oskar personal website, a one stop showcase for skill
+  description: Oskar Wong, a software engineer in New York with 10+ years of experience building iOS and watchOS apps, back ends and APIs.
 ---
 
 ---main

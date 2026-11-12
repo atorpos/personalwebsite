@@ -1,0 +1,21 @@
+# Oskar Wong
+
+> Oskar Wong is a software engineer in New York with more than 10 years of experience building iOS and watchOS apps, back ends and APIs. This is his personal website, with his projects, the services he offers and how to contact him.
+
+## Current projects
+
+- [LockinMinder](https://www.altawoz.com/projects/lockinminder): an Apple Watch, iPhone and iPad app that remembers the combinations of your combination locks and where you left each padlock, synced through your own iCloud account. Public beta on TestFlight.
+- [Hockolic](https://www.altawoz.com/projects/hockolic): an iPhone app for NHL fans and fantasy hockey players, with every team's salary cap and contracts, mock trades with an estimate of whether they would happen, and a fantasy league with points counted game by game. Public beta on TestFlight.
+- [Current Projects](https://www.altawoz.com/current-projects): both apps, with their TestFlight invitations.
+
+## About
+
+- [About](https://www.altawoz.com/about): background, interests, skills, employment and education.
+- [Services](https://www.altawoz.com/services): web and mobile app development, front-end and back-end development, APIs, data analysis and AI integration.
+- [Projects](https://www.altawoz.com/projects): all projects, including the ALGARA smart jewelry, and open-source repositories on GitHub.
+- [Contact](https://www.altawoz.com/contact): how to get in touch.
+
+## Elsewhere
+
+- [GitHub](https://github.com/atorpos)
+- [LinkedIn](https://www.linkedin.com/in/oskarwong)

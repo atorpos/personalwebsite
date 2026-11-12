@@ -141,12 +141,20 @@ export const siteMetaData = {
   siteName: 'Oskar Wong',
   defaultTitle: 'Oskar Wong Personal Site',
   titleTemplate: 'Oskar Wong | %s',
-  description: 'Oskar wong personal website with some profiles',
+  description:
+    'Oskar Wong, a software engineer in New York building iOS and watchOS apps, back ends and APIs.',
+  jobTitle: 'Software Engineer',
+  // Link previews of pages without an image of their own
+  image: {
+    src: '/og-image.jpg',
+    width: 1200,
+    height: 630,
+    alt: 'Oskar Wong, Software Engineer',
+  },
   email: 'oskar.wong@me.com',
   locale: 'en_US',
   twitter: {
     handle: '@atropos',
-    site: '@site',
     cardType: 'summary_large_image',
   },
 }

@@ -1,21 +1,21 @@
 {
-  "name": "My Portfolio Site",
-  "short_name": "Portfolio",
+  "name": "Oskar Wong",
+  "short_name": "Oskar Wong",
+  "description": "Oskar Wong, a software engineer in New York building iOS and watchOS apps, back ends and APIs.",
+  "start_url": "/",
   "icons": [
     {
-      "src": "/android-chrome-192x192.png",
+      "src": "/favicon/android-chrome-192x192.png",
       "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "type": "image/png"
     },
     {
-      "src": "/android-chrome-512x512.png",
+      "src": "/favicon/android-chrome-512x512.png",
       "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "type": "image/png"
     }
   ],
-  "theme_color": "#22c55e",
-  "background_color": "#000000",
+  "theme_color": "#27272a",
+  "background_color": "#18181b",
   "display": "standalone"
 }
