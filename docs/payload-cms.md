@@ -42,6 +42,8 @@ move to the CMS one at a time, and without `PAYLOAD_URL` the site builds exactly
   Posts from the CMS are listed next to the Markdown posts.
 - Still in this repo: the contact form's questions (`content/contact-form.json`), the tag pages (`content/tags`), the
   newsletter box, the theme's demo pages (`index-2`, `index-3`, `index-5`), and the design.
+- `/current-projects` (`content/current-projects.md`) is only in this repo. It lists the Markdown projects with
+  `current: true`, by their `order` (1 first), which projects in the CMS don't have.
 
 | File                                | Role                                                                            |
 | ----------------------------------- | ------------------------------------------------------------------------------- |
