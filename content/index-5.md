@@ -1,6 +1,7 @@
 ---
 layout: Home
 seo:
+  noindex: true
   title: Web Developer
   description: Custom description for this page goes here
 ---

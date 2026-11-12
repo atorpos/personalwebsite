@@ -1,6 +1,7 @@
 import React from 'react'
 import { useRouter } from 'next/router'
 import Seo from '@/components/Seo'
+import SiteJsonLd from '@/components/SiteJsonLd'
 import Layout from '@/components/Layout'
 import layouts from '@/layouts/index'
 import { getPaths, getPageBySlug, generateCollectionRss } from '@/lib/mdx'
@@ -30,8 +31,10 @@ export async function getStaticProps({ params }) {
     }
   }
 
+  // An address without a page answers 404, so search engines drop it (pages/404.js shows the
+  // "not found" page)
   if (!page) {
-    page = await getPageBySlug(['not-found'])
+    return { notFound: true, ...(isCmsEnabled && { revalidate: revalidateSeconds }) }
   }
 
   // Name, menu and social links from Site settings in Payload CMS (null: theme.config.js)
@@ -79,7 +82,9 @@ export async function getStaticPaths() {
     },
   }))
 
-  return { paths, fallback: true }
+  // Pages published in the CMS after the build are rendered on their first visit before the server
+  // answers, so search engines get the whole page (or a 404), never a loading placeholder
+  return { paths, fallback: 'blocking' }
 }
 
 export default function Page({ pagination, page = {}, site }) {
@@ -89,12 +94,14 @@ export default function Page({ pagination, page = {}, site }) {
   const layout = router.isFallback ? 'Fallback' : meta.layout
   const DynamicLayout = layouts[layout]
   const pageUrl = siteMetaData.siteUrl + router.asPath
+  const isHome = router.asPath.split(/[?#]/)[0] === '/'
 
   if (!DynamicLayout) return null
 
   return (
     <>
       <Seo {...meta} site={site} pageUrl={pageUrl} />
+      {isHome && <SiteJsonLd site={site} />}
       <DynamicLayout {...meta} {...content} pagination={pagination} pageUrl={pageUrl} site={site} />
     </>
   )

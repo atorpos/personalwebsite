@@ -3,7 +3,7 @@ layout: Blog
 title: Node.js
 seo:
   title: Node.js Articles
-  description: Custom description for this page goes here
+  description: Articles by Oskar Wong about Node.js.
 collection:
   path: /blog
   recordsPerPage: 9

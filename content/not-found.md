@@ -1,6 +1,7 @@
 ---
 layout: 'BlankCenter'
 seo:
+  noindex: true
   title: 404 Not Found
   description: Custom description for this page goes here
 ---

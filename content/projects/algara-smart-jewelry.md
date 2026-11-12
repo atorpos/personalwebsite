@@ -8,7 +8,6 @@ tags:
   - objective-c
   - BLE
 logo:
-  src: /icons/20150421003431-titlepage.jpg
   alt: Algara
 images:
   - src: /projects/unidefpsyl1j3yc2rcyv.jpg

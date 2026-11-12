@@ -3,7 +3,7 @@ layout: Blog
 title: Digital Marketing
 seo:
   title: Digital Marketing Articles
-  description: Custom description for this page goes here
+  description: Articles by Oskar Wong about marketing.
 collection:
   path: /blog
   recordsPerPage: 9

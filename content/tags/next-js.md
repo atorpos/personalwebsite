@@ -3,7 +3,7 @@ layout: Blog
 title: Next.js
 seo:
   title: Next.js Articles
-  description: Custom description for this page goes here
+  description: Articles by Oskar Wong about Next.js.
 collection:
   path: /blog
   recordsPerPage: 9

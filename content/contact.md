@@ -2,7 +2,7 @@
 layout: Contact
 seo:
   title: Contact Me
-  description: Custom description for this page goes here
+  description: Get in touch with Oskar Wong about a new project, a problem to solve, or just to connect.
 ---
 
 

@@ -2,7 +2,7 @@
 layout: Blog
 seo:
   title: My Blog
-  description: Custom description for this page goes here
+  description: Articles and experiments by Oskar Wong about APIs, AI and web development.
 collection:
   path: /blog
   sortBy: date
