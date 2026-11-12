@@ -8,7 +8,7 @@
 
 import { IoLogoGithub, IoLogoYoutube, IoLogoLinkedin } from 'react-icons/io5'
 import { TfiHome, TfiPencilAlt } from 'react-icons/tfi'
-import { SlUser, SlBriefcase, SlEnvolope, SlTrophy } from 'react-icons/sl'
+import { SlUser, SlBriefcase, SlEnvolope, SlTrophy, SlRocket } from 'react-icons/sl'
 
 /**
  * Main Menu Items
@@ -58,6 +58,11 @@ export const menu = [
     name: 'Projects',
     slug: '/projects',
     Icon: SlTrophy,
+  },
+  {
+    name: 'Current Projects',
+    slug: '/current-projects',
+    Icon: SlRocket,
   },
   {
     name: 'Contact',
