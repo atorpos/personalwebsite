@@ -146,6 +146,11 @@ open one and choose **Restore** to go back.
 
 ### Photos
 
+The separate `/flickr` page shows the public Flickr photostream once the CMS Flickr sync is set up.
+Its setup and six-hour schedule are documented in `apps/cms/deploy/FLICKR.md` in the CMS repository.
+Add `/flickr` to the main menu in Site settings if you want it available directly. Images link to
+their Flickr pages and are limited to 30 per page. This gallery does not import Flickr albums.
+
 The photo portfolio at `/photos` exists only in the CMS (with `PAYLOAD_URL` unset, `/photos` is "not found"). To fill
 it:
 

@@ -104,6 +104,11 @@ const Layout = (props) => {
       )}
 
       {photoSite.albums.length > 0 && <GalleryNav albums={photoSite.albums} active="/photos" />}
+      <div className="w-full px-5 pt-8 text-center">
+        <Link href="/flickr" className="text-omega-300 hover:text-white">
+          Explore my Flickr photos →
+        </Link>
+      </div>
 
       {albums.list.length > 0 && (
         <section
