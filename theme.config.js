@@ -77,7 +77,7 @@ export const menu = [
 
 export const social = [
   {
-    name: 'X',
+    name: 'GitHub',
     url: 'https://www.github.com/atorpos',
     Icon: IoLogoGithub,
   },

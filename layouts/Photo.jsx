@@ -3,9 +3,10 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { SlArrowLeft, SlArrowRight } from 'react-icons/sl'
 import JsonLd from '@/components/JsonLd'
-import PhotoBreadcrumbs from '@/components/PhotoBreadcrumbs'
 import PhotoImage from '@/components/PhotoImage'
-import Tag from '@/components/Tag'
+import PhotoSiteFooter from '@/components/PhotoSiteFooter'
+import PhotoTagLinks from '@/components/PhotoTagLinks'
+import { GalleryNav, PhotoSiteHeader } from '@/components/PhotoSiteHeader'
 import { getSiteMetaData } from '@/utils/site'
 import { config } from '../theme.config'
 
@@ -25,20 +26,25 @@ const Neighbor = ({ photo, direction }) => {
       rel={direction}
       className="group flex max-w-[48%] items-center gap-3 no-underline"
     >
-      {!isNext && <Arrow className="shrink-0 text-beta" aria-hidden="true" />}
+      {!isNext && <Arrow className="shrink-0 text-omega-400" aria-hidden="true" />}
       <span className={isNext ? 'text-right' : ''}>
-        <small className="block font-mono uppercase text-omega-400">
+        <small className="block text-xs uppercase tracking-[0.25em] text-omega-400">
           {isNext ? 'Next' : 'Previous'}
         </small>
-        <span className="text-omega-100 group-hover:text-beta">{photo.title}</span>
+        <span className="font-serif text-xl text-omega-100 group-hover:opacity-70">
+          {photo.title}
+        </span>
       </span>
-      {isNext && <Arrow className="shrink-0 text-beta" aria-hidden="true" />}
+      {isNext && <Arrow className="shrink-0 text-omega-400" aria-hidden="true" />}
     </Link>
   )
 }
 
-/** /photos/<album>/<photo>: the photo, its texts and details, and the photos next to it */
-const Layout = ({ photo, previous, next, pageUrl, site }) => {
+/**
+ * /photos/<album>/<photo>: the photo, its texts and details, the photos next to it, and Info and
+ * Contact
+ */
+const Layout = ({ photoSite, photo, previous, next, pageUrl, site }) => {
   const router = useRouter()
   const { siteUrl, authorName } = getSiteMetaData(site)
 
@@ -63,7 +69,7 @@ const Layout = ({ photo, previous, next, pageUrl, site }) => {
   ].filter(Boolean)
 
   return (
-    <div className="mx-auto w-full p-3 md:p-6 lg:p-12">
+    <div className="w-full text-omega-100">
       <JsonLd
         id="photo"
         data={{
@@ -118,65 +124,65 @@ const Layout = ({ photo, previous, next, pageUrl, site }) => {
           ],
         }}
       />
-      <PhotoBreadcrumbs
-        items={[
-          { title: 'Photos', path: '/photos' },
-          { title: photo.album.title, path: photo.album.path },
-        ]}
-      />
+      <PhotoSiteHeader photoSite={photoSite} />
+      <GalleryNav albums={photoSite.albums} active={photo.album.path} />
 
-      <figure className="m-0 flex items-center justify-center bg-omega-900">
-        <PhotoImage
-          // A new photo, not the old one resized, when the arrows go to the next photo
-          key={photo.path}
-          photo={photo}
-          sizes="(min-width: 1024px) 75vw, 100vw"
-          priority
-          className="m-0 block h-auto max-h-[85vh] w-auto max-w-full"
-        />
-      </figure>
+      <div className="w-full px-5 py-10 md:px-10 md:py-14 lg:px-16">
+        <figure className="m-0 flex items-center justify-center bg-omega-900">
+          <PhotoImage
+            // A new photo, not the old one resized, when the arrows go to the next photo
+            key={photo.path}
+            photo={photo}
+            sizes="(min-width: 1024px) 75vw, 100vw"
+            priority
+            className="m-0 block h-auto max-h-[85vh] w-auto max-w-full"
+          />
+        </figure>
 
-      <div className="mt-6 grid gap-8 md:mt-10 lg:grid-cols-3">
-        <div className="prose max-w-none dark:prose-invert lg:col-span-2">
-          <h1 className="mb-4 text-3xl lg:text-4xl">{photo.title}</h1>
-          {photo.description
-            .split(/\n\s*\n/)
-            .filter((paragraph) => paragraph.trim())
-            .map((paragraph, i) => (
-              <p key={i}>{paragraph.trim()}</p>
-            ))}
-          {photo.tags.length > 0 && (
-            <div className="not-prose mt-6 flex flex-wrap gap-2">
-              {photo.tags.map((tag) => (
-                <Tag key={tag} slug={['', 'photos', 'tags', tag]} className="font-mono text-sm">
-                  {tag.replace(/-/g, ' ')}
-                </Tag>
+        <div className="mt-6 grid gap-8 md:mt-10 lg:grid-cols-3">
+          <div className="prose max-w-none dark:prose-invert lg:col-span-2">
+            <Link
+              href={photo.album.path}
+              className="text-xs uppercase tracking-[0.25em] text-omega-400 no-underline hover:text-white"
+            >
+              {photo.album.title}
+            </Link>
+            <h1 className="mb-4 mt-3 font-serif text-4xl font-medium lg:text-5xl">{photo.title}</h1>
+            {photo.description
+              .split(/\n\s*\n/)
+              .filter((paragraph) => paragraph.trim())
+              .map((paragraph, i) => (
+                <p key={i}>{paragraph.trim()}</p>
               ))}
-            </div>
+            {photo.tags.length > 0 && (
+              <PhotoTagLinks tags={photo.tags.map((tag) => ({ tag }))} className="not-prose mt-6" />
+            )}
+          </div>
+
+          {details.length > 0 && (
+            <dl className="m-0 grid h-fit grid-cols-[auto_1fr] gap-x-6 gap-y-3 bg-omega-800 p-4 md:p-6">
+              {details.map(({ label, value }) => (
+                <React.Fragment key={label}>
+                  <dt className="font-mono text-sm uppercase text-omega-400">{label}</dt>
+                  <dd className="m-0 text-omega-100">{value}</dd>
+                </React.Fragment>
+              ))}
+            </dl>
           )}
         </div>
 
-        {details.length > 0 && (
-          <dl className="m-0 grid h-fit grid-cols-[auto_1fr] gap-x-6 gap-y-3 bg-omega-800 p-4 md:p-6">
-            {details.map(({ label, value }) => (
-              <React.Fragment key={label}>
-                <dt className="font-mono text-sm uppercase text-omega-400">{label}</dt>
-                <dd className="m-0 text-omega-100">{value}</dd>
-              </React.Fragment>
-            ))}
-          </dl>
+        {(previous || next) && (
+          <nav
+            aria-label="More photos from this album"
+            className="mt-10 flex items-start justify-between gap-6 border-t border-omega-700 pt-6"
+          >
+            <Neighbor photo={previous} direction="prev" />
+            <Neighbor photo={next} direction="next" />
+          </nav>
         )}
       </div>
 
-      {(previous || next) && (
-        <nav
-          aria-label="More photos from this album"
-          className="mt-10 flex items-start justify-between gap-6 border-t border-omega-700 pt-6"
-        >
-          <Neighbor photo={previous} direction="prev" />
-          <Neighbor photo={next} direction="next" />
-        </nav>
-      )}
+      <PhotoSiteFooter photoSite={photoSite} site={site} />
     </div>
   )
 }
