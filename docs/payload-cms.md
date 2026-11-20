@@ -31,7 +31,7 @@ move to the CMS one at a time, and without `PAYLOAD_URL` the site builds exactly
 | Blog page                                            | `/blog`: its texts                                                                                | `content/blog.md`              |
 | Posts                                                | `/blog/<slug>`, the blog, tag pages, featured posts on the home page and the RSS feed             | `content/blog/**` (both shown) |
 | Contact page                                         | `/contact`: introduction and contact details (the form stays as it is)                            | `content/contact.md`           |
-| Photos page                                          | `/photos`: its texts                                                                              | built-in defaults              |
+| Photos page                                          | `/photos`: its title and subtitle; Info on every photo page                                       | built-in defaults              |
 | Photo albums                                         | The albums on `/photos`, each at `/photos/<slug>`                                                 | (CMS only)                     |
 | Photos                                               | A page per photo at `/photos/<album>/<slug>`, tag pages at `/photos/tags/<tag>`                   | (CMS only)                     |
 | Pages with **Personal website** in their Sites field | `/<slug>`, e.g. `/privacy-policy`. A page with the slug `not-found` replaces the "not found" page | `content/<slug>.md`            |
@@ -158,6 +158,19 @@ it:
    the file name and you write the rest.
 4. Optional: add **Location**, tick **Featured** to show a photo on `/photos`, and drag photos into order.
 5. Add `/photos` to the main menu in Site settings (the **Camera** or **Picture** icon fits).
+
+The portfolio is laid out like a photographer's own site. Every page of it has the same parts around its photos:
+
+| Part                       | Where it comes from                                                                                                      |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| Title at the top           | **Title** of the Photos page (and its **Subtitle** under it on `/photos`)                                                |
+| Gallery bar (All, albums…) | The published albums with photos, in their order; each album is its own page at `/photos/<album>`                        |
+| Photo across the top       | `/photos`: the first landscape photo among the featured ones. An album: its **Cover**, or else its first landscape photo |
+| **Info** (bottom)          | Your name, the Photos page's **Subtitle** and **Introduction**, beside a portrait photo among the featured ones          |
+| **Contact** (bottom)       | The email and social links of Site settings (or `theme.config.js`), and a button to `/contact`                           |
+
+The Info and Contact links at the top of every page jump to those parts. To change the photo beside Info, tick
+**Featured** on a portrait photo (the first one in the list is used).
 
 The CMS strips each photo's metadata (such as its GPS location) and stores it with copies at 480, 960, 1600 and
 2560 px; the website loads the size that fits the screen straight from there (S3), without the Next.js image

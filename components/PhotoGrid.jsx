@@ -7,7 +7,11 @@ const sizes = '(min-width: 1280px) 30vw, (min-width: 640px) 45vw, 100vw'
 
 // Buttons that show only the photos with one tag
 const TagFilter = ({ tags, active, onChange }) => (
-  <div className="mb-6 flex flex-wrap gap-2" role="group" aria-label="Show photos by tag">
+  <div
+    className="mb-10 flex flex-wrap justify-center gap-x-7 gap-y-3"
+    role="group"
+    aria-label="Show photos by tag"
+  >
     {[{ tag: null, label: 'All' }, ...tags.map(({ tag }) => ({ tag, label: tag }))].map(
       ({ tag, label }) => (
         <button
@@ -16,8 +20,10 @@ const TagFilter = ({ tags, active, onChange }) => (
           aria-pressed={active === tag}
           onClick={() => onChange(tag)}
           className={classNames(
-            'select-none px-3 py-1 font-mono text-sm uppercase transition-colors',
-            active === tag ? 'bg-beta text-omega-900' : 'bg-beta/10 text-beta hover:bg-beta/20'
+            'select-none border-b pb-1 text-xs uppercase tracking-[0.25em] transition-colors',
+            active === tag
+              ? 'border-omega-100 text-white'
+              : 'border-transparent text-omega-400 hover:text-white'
           )}
         >
           {label.replace(/-/g, ' ')}
@@ -40,9 +46,9 @@ const PhotoGrid = ({ photos = [], filterTags, priorityCount = 0 }) => {
       {filterTags?.length > 1 && (
         <TagFilter tags={filterTags} active={activeTag} onChange={setActiveTag} />
       )}
-      <ul className="m-0 list-none columns-1 gap-4 p-0 sm:columns-2 xl:columns-3">
+      <ul className="m-0 list-none columns-1 gap-6 p-0 sm:columns-2 md:gap-8 xl:columns-3">
         {shown.map((photo, i) => (
-          <li key={photo.path} className="m-0 mb-4 break-inside-avoid p-0">
+          <li key={photo.path} className="m-0 mb-6 break-inside-avoid p-0 md:mb-8">
             <Link
               href={photo.path}
               className="group relative block overflow-hidden bg-omega-800 no-underline"
@@ -51,7 +57,7 @@ const PhotoGrid = ({ photos = [], filterTags, priorityCount = 0 }) => {
                 photo={photo}
                 sizes={sizes}
                 priority={i < priorityCount}
-                className="m-0 block h-auto w-full transition-transform duration-500 group-hover:scale-105"
+                className="m-0 block h-auto w-full transition-transform duration-700 group-hover:scale-105"
               />
               <span
                 className={classNames(
