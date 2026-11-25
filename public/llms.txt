@@ -4,9 +4,13 @@
 
 ## Current projects
 
-- [LockinMinder](https://www.altawoz.com/projects/lockinminder): an Apple Watch, iPhone and iPad app that remembers the combinations of your combination locks and where you left each padlock, synced through your own iCloud account. Public beta on TestFlight.
+- [LockinMinder](https://www.altawoz.com/lockinminder): an Apple Watch, iPhone and iPad app that remembers the combinations of your combination locks and where you left each padlock, synced through your own iCloud account. On the [App Store](https://apps.apple.com/app/id6830228333) since November 2026: free with up to three locks, and Pro is a one-time purchase. The first 500 people get Pro free with a [launch code](https://www.altawoz.com/lockinminder/redeem). How it was built: [project page](https://www.altawoz.com/projects/lockinminder).
 - [Hockolic](https://www.altawoz.com/projects/hockolic): an iPhone app for NHL fans and fantasy hockey players, with every team's salary cap and contracts, mock trades with an estimate of whether they would happen, and a fantasy league with points counted game by game. Public beta on TestFlight.
-- [Current Projects](https://www.altawoz.com/current-projects): both apps, with their TestFlight invitations.
+- [Current Projects](https://www.altawoz.com/current-projects): both apps, with LockinMinder's App Store link and Hockolic's TestFlight invitation.
+
+## News
+
+- [LockinMinder is on the App Store](https://www.altawoz.com/blog/news/lockinminder-is-on-the-app-store): the launch announcement, with what's in the app and the free Pro launch codes.
 
 ## About
 

@@ -1,7 +1,7 @@
 ---
 layout: Post
 title: LockinMinder
-description: Remembers the combinations of your combination locks and where you left each padlock, on Apple Watch, iPhone and iPad. In public beta on TestFlight.
+description: Remembers the combinations of your combination locks and where you left each padlock, on Apple Watch, iPhone and iPad. Now on the App Store.
 date: '2026-11-12'
 # Listed on /current-projects, first
 current: true
@@ -15,10 +15,10 @@ logo:
   alt: Apple Watch · iPhone · iPad
 images:
   - src: /projects/lockinminder/banner.jpg
-    alt: LockinMinder for Apple Watch, iPhone and iPad
+    alt: LockinMinder for Apple Watch, iPhone and iPad, now on the App Store
 attributes:
   - label: Status
-    value: Public beta on TestFlight
+    value: On the App Store
   - label: Platforms
     value: Apple Watch, iPhone, iPad
   - label: Role
@@ -31,7 +31,10 @@ LockinMinder remembers the combinations of your combination locks, and where you
 combination on your wrist at the gym locker, tap **Mark as Locked** at the bike rack, and find your way back to it
 later on a map. It runs on Apple Watch, iPhone and iPad, and keeps them in sync through your own iCloud account.
 
-<Button href="https://testflight.apple.com/join/PSfs8fSa" size="sm">Join the beta on TestFlight</Button>
+LockinMinder is now on the App Store, free with up to three locks. For the launch, the first 500 people get Pro free:
+[get your code](/lockinminder/redeem). More on the [LockinMinder page](/lockinminder).
+
+<Button href="https://apps.apple.com/app/id6830228333" size="sm">Download on the App Store</Button>
 
 ---
 
@@ -119,9 +122,12 @@ sync stays free, and locks you've already saved are never hidden or deleted.
 
 ---
 
-### Try the beta
+### Get it
 
-You need an iPhone with iOS 18 or later. For the watch app, an Apple Watch with watchOS 27. Install
-[TestFlight](https://apps.apple.com/app/testflight/id899247664), then open the invitation:
+LockinMinder is free on the App Store. You need an iPhone with iOS 18 or later; for the watch app, an Apple Watch with
+watchOS 27. Thank you to everyone who tested the public beta on TestFlight.
 
-<Button href="https://testflight.apple.com/join/PSfs8fSa" size="sm">Join the beta on TestFlight</Button>
+While the 500 launch codes last, [get LockinMinder Pro free](/lockinminder/redeem): one tap on your iPhone opens the
+App Store with your code filled in.
+
+<Button href="https://apps.apple.com/app/id6830228333" size="sm">Download on the App Store</Button>

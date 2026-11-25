@@ -11,6 +11,7 @@ const layouts = {
   Post: dynamic(() => import(`@/layouts/Post`)),
   Blog: dynamic(() => import(`@/layouts/Blog`)),
   Projects: dynamic(() => import(`@/layouts/Projects`)),
+  Product: dynamic(() => import(`@/layouts/Product`)),
   Photos: dynamic(() => import(`@/layouts/Photos`)),
   PhotoAlbum: dynamic(() => import(`@/layouts/PhotoAlbum`)),
   Photo: dynamic(() => import(`@/layouts/Photo`)),
