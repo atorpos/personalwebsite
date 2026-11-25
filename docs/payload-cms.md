@@ -209,6 +209,35 @@ settings.
 A tag links to its tag page when `content/tags/<tag>.md` exists. For a new tag, copy `content/tags/react.md` to
 `content/tags/<tag>.md` and change its title and `filterBy` tag.
 
+## App Store offer codes
+
+`/lockinminder/redeem` is the one link to share for the LockinMinder launch codes: 500 one-time App Store codes that
+unlock Pro for free. The codes live in the CMS (**App Store → Offer codes**), which tracks which ones were given out;
+importing Apple's CSV and tracking are described under "App Store offer codes" in the CMS's `apps/cms/README.md`.
+
+1. The page shows the offer and a **Get my free code** button. Opening the link gives nothing away, so link previews
+   (iMessage, Slack, LinkedIn) and email link scanners don't use up codes.
+2. The button posts to `pages/api/lockinminder/redeem.js`, which asks the CMS for the next available code
+   (`POST /api/offer-codes/claim`) and remembers it in a cookie, so tapping again gives the same code back.
+3. On an iPhone or iPad, the visitor goes straight to Apple's redeem page, which installs the app and unlocks Pro.
+   Anywhere else, the page shows the code, a button and a QR code to scan with an iPhone. On a computer, the page also
+   shows a QR code of itself before any code is given out.
+4. When none are left, the page says so and links to the App Store.
+
+Set `OFFER_CODES_API_KEY` for the website to the same value as `OFFER_CODES_API_KEY` in the CMS (generate it with
+`openssl rand -hex 32`), next to `PAYLOAD_URL`, and redeploy. Without it, the page shows only the App Store link.
+
+The CMS limits each network to 10 codes a day, using the visitor's IP address from `X-Forwarded-For` (set by Vercel
+or your reverse proxy) and keeping only a hash of it.
+
+| File                                   | Role                                                                     |
+| -------------------------------------- | ------------------------------------------------------------------------ |
+| `pages/lockinminder/redeem.jsx`        | The redeem page: the offer, the visitor's code, sold out                 |
+| `pages/api/lockinminder/redeem.js`     | The button: gets a code from the CMS and sends the visitor to the App Store |
+| `lib/offer-codes.js`                   | Talks to the CMS's offer code endpoints; the visitor's cookie            |
+| `lib/lockinminder.js`                  | The App Store ID and links                                               |
+| `content/lockinminder.md`, `layouts/Product.jsx` | The product page at `/lockinminder`                            |
+
 ## What rich text can contain
 
 The rich text of pages, projects and posts is rendered by `components/RichText.jsx`:

@@ -22,6 +22,8 @@ module.exports = {
     '/index-5',
     '/new-page',
     '/not-found',
+    // Hands out the visitor's own launch code (pages/lockinminder/redeem.jsx); /lockinminder is the page to find
+    '/lockinminder/redeem',
     // The first page of a list is the list itself, e.g. /blog/page/1 is /blog
     '*/page/1',
   ],
